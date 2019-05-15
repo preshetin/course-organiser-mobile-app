@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "course-organizer-dev-20190515163952-authRole",
+            "UnauthRoleArn": "arn:aws:iam::027546143534:role/course-organizer-dev-20190515163952-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::027546143534:role/course-organizer-dev-20190515163952-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "course-organizer-dev-20190515163952-deployment",
+            "UnauthRoleName": "course-organizer-dev-20190515163952-unauthRole",
+            "StackName": "course-organizer-dev-20190515163952",
+            "StackId": "arn:aws:cloudformation:us-east-1:027546143534:stack/course-organizer-dev-20190515163952/eb6dfab0-7716-11e9-9fb9-0e3dd8dc9008"
+        },
+        "categories": {
+            "auth": {
+                "cognito193fd13b": {}
+            }
+        }
+    }
+}
