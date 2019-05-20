@@ -6,4 +6,5 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.swp
+config.js
 
