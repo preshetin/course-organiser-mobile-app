@@ -1,33 +1,48 @@
 import React from 'react'
+import { API } from 'aws-amplify'
 import { ScrollView, StyleSheet } from 'react-native'
-import VisitorsListView from '../components/VisitorsListView'
+import CoursesListView from '../components/CoursesListView'
 
 export default class CoursesScreen extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      courses: null
+    }
+  }
+
   static navigationOptions = {
     title: 'Courses'
   };
 
+  async componentDidMount () {
+    const courses = await this.list()
+    console.log('courses from api', courses)
+  }
+
+  list = async () => {
+    console.log('calling api')
+    const response = await API.get('courses', '/courses')
+    this.setState({ courses: response })
+    return response
+  //  alert(JSON.stringify(response, null, 2));
+  }
+
   render () {
+    const { courses } = this.state
+
+    let formattedCourses = null
+    if (Array.isArray(courses)) {
+      formattedCourses = courses.map(course => ({
+        ...course,
+        id: course.courseId
+      }))
+    }
+
     return (
       <ScrollView style={styles.container}>
-        <VisitorsListView
-          data={[
-            { title: '111fffoo', id: 'aa1Devin' },
-            { title: 'foo', id: '1Jackson' },
-            { title: 'foo', id: '1James' },
-            { title: 'foo', id: '1Joel' },
-            { title: 'foo', id: '1John' },
-            { title: 'foo', id: '1Jillian' },
-            { title: 'foo', id: '1Jimmy' },
-            { title: 'foo', id: '12Devin' },
-            { title: 'foo', id: 'Jackson' },
-            { title: 'foo', id: 'James' },
-            { title: 'foo', id: 'Joel' },
-            { title: 'foo', id: 'John' },
-            { title: 'foo', id: 'Jillian' },
-            { title: 'foo', id: 'Jimmy' },
-            { title: 'foo', id: 'Julie' }
-          ]}
+        <CoursesListView
+          data={formattedCourses}
         />
       </ScrollView>
     )

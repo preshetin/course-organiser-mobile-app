@@ -5,15 +5,14 @@ import { withNavigation } from 'react-navigation'
 
 class MyListItem extends React.PureComponent {
   _onPress = () => {
-    this.props.onPressItem(this.props.id)
+    this.props.onPressItem(this.props.item)
   };
 
   render () {
-    const textColor = this.props.selected ? 'red' : 'black'
     return (
       <TouchableOpacity onPress={this._onPress}>
         <View>
-          <Text style={styles.item}>{textColor}{this.props.title}</Text>
+          <Text style={styles.item}>{this.props.title}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -25,20 +24,29 @@ class MultiSelectList extends React.PureComponent {
 
   _keyExtractor = (item, index) => item.id;
 
-  _onPressItem = (id: string) => {
-    this.props.navigation.navigate('Visitor', { id })
+  _onPressItem = (item) => {
+    this.props.navigation.navigate('Applications', {
+      course: item,
+      title: item.title ? item.title : 'Applications'
+    })
   };
 
   _renderItem = ({ item }) => (
     <MyListItem
       id={item.id}
       onPressItem={this._onPressItem}
+      item={item}
       selected={!!this.state.selected.get(item.id)}
       title={item.title}
     />
   );
 
   render () {
+    const { data } = this.props
+    if (!data) {
+      return null
+    }
+
     return (
       <FlatList
         data={this.props.data}

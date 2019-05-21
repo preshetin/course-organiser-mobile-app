@@ -2,7 +2,7 @@ import React from 'react'
 import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { AppLoading, Asset, Font, Icon } from 'expo'
 import AppNavigator from './navigation/AppNavigator'
-import Amplify, { API } from 'aws-amplify'
+import Amplify from 'aws-amplify'
 import config from './config'
 import { withAuthenticator } from 'aws-amplify-react-native'
 
@@ -29,18 +29,6 @@ class App extends React.Component {
   state = {
     isLoadingComplete: false
   };
-
-  async componentDidMount () {
-    const courses = await this.list()
-    console.log('courses from api', courses)
-  }
-
-  list = async () => {
-    console.log('calling api')
-    const response = await API.get('courses', '/courses')
-    return response
-  //  alert(JSON.stringify(response, null, 2));
-  }
 
   render () {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {

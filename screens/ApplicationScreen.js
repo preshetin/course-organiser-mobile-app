@@ -2,9 +2,9 @@ import React from 'react'
 import { ScrollView, StyleSheet, Text } from 'react-native'
 
 export default class LinksScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Visitor'
-  };
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('title')
+  });
 
   render () {
     const { navigation } = this.props

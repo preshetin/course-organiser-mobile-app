@@ -4,7 +4,8 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon'
 import HomeScreen from '../screens/HomeScreen'
 import CoursesScreen from '../screens/CoursesScreen'
-import VisitorScreen from '../screens/VisitorScreen'
+import ApplicationsScreen from '../screens/ApplicationsScreen'
+import ApplicationScreen from '../screens/ApplicationScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 
 const HomeStack = createStackNavigator({
@@ -27,7 +28,8 @@ HomeStack.navigationOptions = {
 
 const CoursesStack = createStackNavigator({
   Courses: CoursesScreen,
-  Visitor: VisitorScreen
+  Applications: ApplicationsScreen,
+  Application: ApplicationScreen
 })
 
 CoursesStack.navigationOptions = {
