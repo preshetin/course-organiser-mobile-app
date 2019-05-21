@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default withAuthenticator(App, true)
+export default withAuthenticator(App)

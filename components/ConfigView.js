@@ -1,8 +1,14 @@
 import React from 'react'
+import LogoutButton from './LogoutButton'
 import { SectionList, Image, StyleSheet, Text, View } from 'react-native'
 import { Constants } from 'expo'
 
 export default class ConfigView extends React.Component {
+  overrideRenderItem = ({ item, index, section: { title, data } }) => {
+    return <LogoutButton />
+    return <Text key={index}>Override</Text>
+  }
+
   render () {
     const { manifest } = Constants
     const sections = [
@@ -17,6 +23,16 @@ export default class ConfigView extends React.Component {
       {
         data: [{ value: manifest.splash && manifest.splash.image }],
         title: 'splash.image'
+      },
+      {
+        data: [
+          {
+            value: manifest.splash && manifest.splash.backgroundColor,
+            type: 'color'
+          }
+        ],
+        title: 'Log out',
+        renderItem: this.overrideRenderItem
       },
       {
         data: [
