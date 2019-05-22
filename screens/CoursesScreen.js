@@ -1,12 +1,13 @@
 import React from 'react'
 import { API } from 'aws-amplify'
-import { ScrollView, StyleSheet } from 'react-native'
+import { ScrollView, RefreshControl, StyleSheet } from 'react-native'
 import CoursesListView from '../components/CoursesListView'
 
 export default class CoursesScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      refreshing: false,
       courses: null
     }
   }
@@ -15,12 +16,21 @@ export default class CoursesScreen extends React.Component {
     title: 'Courses'
   };
 
+  _onRefresh = async () => {
+    this.setState({ refreshing: true })
+    const courses = await this.fetchCourses()
+    this.setState({
+      courses,
+      refreshing: false
+    })
+  }
+
   async componentDidMount () {
-    const courses = await this.list()
+    const courses = await this.fetchCourses()
     console.log('courses from api', courses)
   }
 
-  list = async () => {
+  fetchCourses = async () => {
     console.log('calling api')
     const response = await API.get('courses', '/courses')
     this.setState({ courses: response })
@@ -40,7 +50,15 @@ export default class CoursesScreen extends React.Component {
     }
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />
+        }
+        style={styles.container}
+      >
         <CoursesListView
           data={formattedCourses}
         />

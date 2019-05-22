@@ -4,7 +4,6 @@ import { AppLoading, Asset, Font, Icon } from 'expo'
 import AppNavigator from './navigation/AppNavigator'
 import Amplify from 'aws-amplify'
 import config from './config'
-import { withAuthenticator } from 'aws-amplify-react-native'
 
 Amplify.configure({
   Auth: {
@@ -83,4 +82,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default withAuthenticator(App)
+export default App
